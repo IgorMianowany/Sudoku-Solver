@@ -22,13 +22,17 @@ public class BoardManager {
         BOARD_SIZE = board.length;
     }
 
-    public void solve() {
+    public void solve(int choice) {
         long start = System.currentTimeMillis();
-        calculateSolution();
+        switch (choice){
+            case 1 -> bruteForceSolve();
+            case 2 -> bruteForceSolve();
+        }
+        bruteForceSolve();
         time = System.currentTimeMillis() - start;
     }
 
-    public boolean calculateSolution(){
+    public boolean bruteForceSolve(){
         // we iterate over entire board looking for empty cells
         for(int row = START_INDEX; row < BOARD_SIZE; row++){
             for(int column = START_INDEX; column < BOARD_SIZE; column++){
@@ -36,7 +40,7 @@ public class BoardManager {
                 if(board[row][column] == NO_VALUE){
                     for(int guess = MIN_VALUE; guess <= MAX_VALUE; guess++){
                         board[row][column] = guess;  // put in our guess
-                        if(isValid(row, column) && calculateSolution()){
+                        if(isValid(row, column) && bruteForceSolve()){
                             // if our guess is valid recursive call to this function passes, sudoku is solved
                             return true;
                         }
