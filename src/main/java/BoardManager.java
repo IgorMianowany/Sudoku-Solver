@@ -1,3 +1,4 @@
+import java.util.Scanner;
 import java.util.stream.IntStream;
 
 public class BoardManager {
@@ -8,16 +9,26 @@ public class BoardManager {
     private final static int SUBSECTION_SIZE = 3;
     private final int BOARD_SIZE;
 
-    private final int[][] board2;
+
+
+    private long time;
+    private final Scanner scanner = new Scanner(System.in);
+    private final int[][] board;
 
 
 
     public BoardManager(int[][] board) {
-        this.board2 = board;
+        this.board = board;
         BOARD_SIZE = board.length;
     }
 
-    public boolean solve(int[][] board){
+    public void solve() {
+        long start = System.currentTimeMillis();
+        calculateSolution();
+        time = System.currentTimeMillis() - start;
+    }
+
+    public boolean calculateSolution(){
         // we iterate over entire board looking for empty cells
         for(int row = START_INDEX; row < BOARD_SIZE; row++){
             for(int column = START_INDEX; column < BOARD_SIZE; column++){
@@ -25,7 +36,7 @@ public class BoardManager {
                 if(board[row][column] == NO_VALUE){
                     for(int guess = MIN_VALUE; guess <= MAX_VALUE; guess++){
                         board[row][column] = guess;  // put in our guess
-                        if(isValid(board, row, column) && solve(board)){
+                        if(isValid(row, column) && calculateSolution()){
                             // if our guess is valid recursive call to this function passes, sudoku is solved
                             return true;
                         }
@@ -41,7 +52,7 @@ public class BoardManager {
         return true;
     }
 
-    boolean checkConstraint(int[][] board, int row, boolean[] constraint, int column) {
+    boolean checkConstraint(int row, boolean[] constraint, int column) {
         if(board[row][column] != NO_VALUE){
             if(!constraint[board[row][column] - 1]){
                 constraint[board[row][column] - 1] = true;
@@ -54,24 +65,24 @@ public class BoardManager {
     }
 
 
-    private boolean isValid(int[][] board, int row, int column) {
-        return (rowConstraint(board, row))
-                && columnConstraint(board, column)
-                && squareConstraint(board, row, column);
+    private boolean isValid(int row, int column) {
+        return (rowConstraint(row))
+                && columnConstraint(column)
+                && squareConstraint(row, column);
 
     }
 
-    private boolean columnConstraint(int[][] board, int column) {
+    private boolean columnConstraint(int column) {
         boolean[] constraint = new boolean[BOARD_SIZE];                                                                // we fill boolean array with false values
-        return IntStream.range(START_INDEX, BOARD_SIZE).allMatch(row -> checkConstraint(board,row, constraint, column));     // for each cell in column we check all the others values
+        return IntStream.range(START_INDEX, BOARD_SIZE).allMatch(row -> checkConstraint(row, constraint, column));     // for each cell in column we check all the others values
     }                                                                                                                  // to see if they are valid
 
-    private boolean rowConstraint(int[][] board, int row) {
+    private boolean rowConstraint(int row) {
         boolean[] constraint = new boolean[BOARD_SIZE];                                                                // same stuff just for rows
-        return IntStream.range(START_INDEX, BOARD_SIZE).allMatch(column -> checkConstraint(board,row, constraint, column));
+        return IntStream.range(START_INDEX, BOARD_SIZE).allMatch(column -> checkConstraint(row, constraint, column));
     }
 
-    private boolean squareConstraint(int[][] board, int row, int column) {
+    private boolean squareConstraint(int row, int column) {
         boolean[] constraint = new boolean[BOARD_SIZE];
         int subsectionRowStart = (row / SUBSECTION_SIZE) * SUBSECTION_SIZE;  // find start and end of a subsection
         int subsectionRowEnd = subsectionRowStart + SUBSECTION_SIZE;         // default size of a subsection is 3x3
@@ -81,19 +92,23 @@ public class BoardManager {
 
         for (int r = subsectionRowStart; r < subsectionRowEnd; r++) {
             for (int c = subsectionColumnStart; c < subsectionColumnEnd; c++) {
-                if (!checkConstraint(board,r, constraint, c)) return false;       // same as others, we check every cell in subsection to find an invalid guess
+                if (!checkConstraint(r, constraint, c)) return false;       // same as others, we check every cell in subsection to find an invalid guess
             }
         }
         return true;
     }
 
-    public void print(int[][] board){
+    public void print(){
         for(int row = START_INDEX; row < BOARD_SIZE; row++){
             for(int column = START_INDEX; column < BOARD_SIZE; column++){
                 System.out.print(board[row][column] + " ");
             }
             System.out.println();
         }
+    }
+
+    public long getTime() {
+        return time;
     }
 
 }
