@@ -24,8 +24,8 @@ public class BoardManager {
                 // if we find empty cell we iterate over all possible values until we find one that passes validation
                 if(board[row][column] == NO_VALUE){
                     for(int guess = MIN_VALUE; guess <= MAX_VALUE; guess++){
+                        board[row][column] = guess;  // put in our guess
                         if(isValid(board, row, column) && solve(board)){
-                            board[row][column] = guess;  // put in our guess
                             // if our guess is valid recursive call to this function passes, sudoku is solved
                             return true;
                         }
