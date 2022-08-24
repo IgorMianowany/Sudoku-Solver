@@ -25,6 +25,7 @@ public class UserInterfaceImpl implements IUserInterfaceContract.View, EventHand
 
     private final Stage stage;
     private final Group root;
+    private boolean firstTime = true;
 
     private HashMap<Coordinates, SudokuTextField> textFieldCoordinates;
 
@@ -173,10 +174,8 @@ public class UserInterfaceImpl implements IUserInterfaceContract.View, EventHand
     public void updateBoard(SudokuGame game) {
         for(int xIndex = 0; xIndex<9; xIndex++){
             for(int yIndex = 0; yIndex<9; yIndex++){
-                TextField tile = textFieldCoordinates.get(new Coordinates(xIndex, yIndex));
-
-                String value = Integer.toString(game.getCopyOfGridState()[xIndex][yIndex]);
-
+                TextField tile = textFieldCoordinates.get(new Coordinates(yIndex, xIndex));     // changed x with y because board
+                String value = Integer.toString(game.getCopyOfGridState()[xIndex][yIndex]);     // was flip for some reason
                 if(value.equals("0")) value = "";
                 tile.setText(value);
 
@@ -186,7 +185,7 @@ public class UserInterfaceImpl implements IUserInterfaceContract.View, EventHand
                         tile.setDisable(false);
                     }
                     else{
-                        tile.setStyle("-fx-opacity: 0.8");
+                        tile.setStyle("-fx-text-fill: red;-fx-opacity: 0.8");
                         tile.setDisable(true);
                     }
                 }

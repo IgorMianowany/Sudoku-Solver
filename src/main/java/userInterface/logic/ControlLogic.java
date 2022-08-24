@@ -25,15 +25,13 @@ public class ControlLogic implements IUserInterfaceContract.EventListener {
         try{
             SudokuGame gameData = storage.getGameData();
             int[][] newGridState = gameData.getCopyOfGridState();
-            newGridState[x][y] = input;
-
+            newGridState[y][x] = input;  // switched because I said so
             gameData = new SudokuGame(
                     GameLogic.checkForCompletion(newGridState),
                     newGridState);
             storage.updateGameData(gameData);
 
             view.updateSquare(x,y,input);
-
             if(gameData.getGameState()== GameState.COMPLETE){
                 view.showDialog(Messages.GAME_COMPLETE);
             }

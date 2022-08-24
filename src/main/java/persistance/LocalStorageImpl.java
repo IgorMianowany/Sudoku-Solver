@@ -34,6 +34,7 @@ public class LocalStorageImpl implements IStorage {
         catch (ClassNotFoundException e){
             e.printStackTrace();
             throw new IOException("File not found");
+
         }
     }
 }
