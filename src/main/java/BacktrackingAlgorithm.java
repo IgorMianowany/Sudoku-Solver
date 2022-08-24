@@ -31,6 +31,7 @@ public class BacktrackingAlgorithm extends AbstractAlgorithm {
 
                 }
             }
+            print();
             return true;
     }
 
@@ -78,15 +79,5 @@ public class BacktrackingAlgorithm extends AbstractAlgorithm {
             }
         }
         return true;
-    }
-
-    @Override
-    public void print(){
-        for(int row = getStartIndex(); row < getBoardSize(); row++){
-            for(int column = getStartIndex(); column < getBoardSize(); column++){
-                System.out.print(board[row][column] + " ");
-            }
-            System.out.println();
-        }
     }
 }

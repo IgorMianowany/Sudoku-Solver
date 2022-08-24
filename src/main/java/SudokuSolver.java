@@ -19,7 +19,7 @@ public class SudokuSolver {
 
         final BoardManager boardManager = new BoardManager(board9x9);
         System.out.println("INPUT:");
-        boardManager.print();
+        //boardManager.print();
 
         System.out.println("Choose solving strategy:");
         System.out.println("1.Backtracking algorithm (brute force solve)\n" +
@@ -28,7 +28,7 @@ public class SudokuSolver {
 
         System.out.println("OUTPUT:");
         boardManager.solve(choice);
-        boardManager.print();
+        //boardManager.print();
         System.out.println("Solve time: "+boardManager.getTime()+"ms");
 
 
