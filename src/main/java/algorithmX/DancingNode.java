@@ -1,3 +1,5 @@
+package algorithmX;
+
 class DancingNode {
     DancingNode L, R, U, D;
     ColumnNode C;

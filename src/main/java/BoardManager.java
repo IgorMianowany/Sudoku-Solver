@@ -1,3 +1,7 @@
+import abstraction.AbstractAlgorithm;
+import algorithmX.DancingLinksAlgorithm;
+import backtrackingAlgorithm.BacktrackingAlgorithm;
+
 public class BoardManager {
     private long time;
     private final AbstractAlgorithm backtrackingAlgorithm;

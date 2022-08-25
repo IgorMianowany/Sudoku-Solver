@@ -1,3 +1,5 @@
+package abstraction;
+
 public class AbstractAlgorithm implements Algorithm {
     private final int startIndex = 0;
     private final int noValue = 0;

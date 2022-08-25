@@ -1,4 +1,7 @@
+package algorithmX;
+
 import java.util.Arrays;
+import abstraction.AbstractAlgorithm;
 
 public class DancingLinksAlgorithm extends AbstractAlgorithm {
     private final int BOARD_SIZE = getBoardSize();

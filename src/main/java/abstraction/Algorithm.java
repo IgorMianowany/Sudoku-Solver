@@ -1,3 +1,5 @@
+package abstraction;
+
 public interface Algorithm {
 
     boolean solve();

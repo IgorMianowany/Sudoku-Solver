@@ -1,3 +1,5 @@
+package algorithmX;
+
 class ColumnNode extends DancingNode {
     int size;
     String name;
