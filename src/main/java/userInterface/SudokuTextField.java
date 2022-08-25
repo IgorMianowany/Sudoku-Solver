@@ -22,14 +22,15 @@ public class SudokuTextField extends TextField {
 
     @Override
     public void replaceText(int i, int i1, String s){
-        if(s.matches("[0-9]")){
+        if(s.matches("\\d")){
             super.replaceText(i, i1, s);
         }
     }
 
+
     @Override
     public void replaceSelection(String s){
-        if(s.matches("[0-9]")){
+        if(s.matches("\\d")){
             super.replaceSelection(s);
         }
     }

@@ -11,7 +11,7 @@ public class BoardManager {
         currentAlgorithm = backtrackingAlgorithm;
     }
 
-    public void solve(int choice) {
+    public int[][] solve(int choice) {
         long start = System.currentTimeMillis();
         switch (choice){
             case 1 -> {
@@ -24,6 +24,15 @@ public class BoardManager {
             }
         }
         time = System.currentTimeMillis() - start;
+        return currentAlgorithm.getBoard();
+    }
+
+    public String boardToString(int[][] board){
+
+
+
+       // return board;
+        return null;
     }
 
     public long getTime() {

@@ -2,19 +2,23 @@ package userInterface;
 
 import constants.GameState;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 import problemdomain.Coordinates;
 import problemdomain.SudokuGame;
@@ -25,9 +29,9 @@ public class UserInterfaceImpl implements IUserInterfaceContract.View, EventHand
 
     private final Stage stage;
     private final Group root;
-    private boolean firstTime = true;
+    private final Button button = new Button();
 
-    private HashMap<Coordinates, SudokuTextField> textFieldCoordinates;
+    private final HashMap<Coordinates, SudokuTextField> textFieldCoordinates;
 
     private IUserInterfaceContract.EventListener listener;
 
@@ -53,6 +57,7 @@ public class UserInterfaceImpl implements IUserInterfaceContract.View, EventHand
         drawSudokuBoard(root);
         drawTextFields(root);
         drawGridLines(root);
+        drawButton(root);
         stage.show();
     }
 
@@ -144,6 +149,18 @@ public class UserInterfaceImpl implements IUserInterfaceContract.View, EventHand
 
         title.setFont(titleFont);
         root.getChildren().add(title);
+    }
+
+    private void drawButton(Group root){
+        button.setText("Show solution");
+        VBox vBox = new VBox(button);
+        PopupWindow popupWindow = new PopupWindow();
+        Stage stage1 = new Stage();
+        button.setOnAction(
+                event -> popupWindow.start(stage1));
+        vBox.setAlignment(Pos.BASELINE_CENTER);
+        VBox.setMargin(button, new Insets(0, 0, 0, 300));
+        root.getChildren().add(vBox);
     }
 
     private void drawBackground(Group root) {

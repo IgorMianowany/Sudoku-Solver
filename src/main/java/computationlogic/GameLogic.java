@@ -41,7 +41,7 @@ public class GameLogic {
 
         return new SudokuGame(
                 GameState.NEW,
-                boardSolved);
+                board9x9);
     }
 
     public static GameState checkForCompletion(int[][] grid){

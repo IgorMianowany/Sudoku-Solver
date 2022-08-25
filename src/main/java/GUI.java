@@ -1,8 +1,7 @@
 import buildlogic.SudokuBuildLogic;
+import javafx.scene.control.Button;
 import userInterface.IUserInterfaceContract;
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import userInterface.UserInterfaceImpl;
 
@@ -14,7 +13,11 @@ public class GUI extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-         uiImpl = new UserInterfaceImpl(primaryStage);
+        SudokuSolver sudokuSolver = new SudokuSolver(new int[5][5]);
+
+
+
+        uiImpl = new UserInterfaceImpl(primaryStage);
         try{
             SudokuBuildLogic.build(uiImpl);
         }catch (IOException e){
