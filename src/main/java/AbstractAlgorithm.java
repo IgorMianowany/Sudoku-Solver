@@ -56,6 +56,16 @@ public class AbstractAlgorithm implements Algorithm {
     }
 
     @Override
+    public void print(int[][] board) {
+        for(int row = getStartIndex(); row < getBoardSize(); row++){
+            for(int column = getStartIndex(); column < getBoardSize(); column++){
+                System.out.print(board[row][column] + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    @Override
     public void print(int row, int column) {
 
     }

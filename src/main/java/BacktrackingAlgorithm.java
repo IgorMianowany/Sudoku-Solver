@@ -1,11 +1,22 @@
-import java.sql.Time;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
+import computationlogic.SudokuUtils;
+
 
 public class BacktrackingAlgorithm extends AbstractAlgorithm {
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_BLACK = "\u001B[30m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_BLUE = "\u001B[34m";
+    public static final String ANSI_PURPLE = "\u001B[35m";
+    public static final String ANSI_CYAN = "\u001B[36m";
+    public static final String ANSI_WHITE = "\u001B[37m";
 
     private final int[][] board;
+    private final int[][] originalBoard;
     private final Scanner in = new Scanner(System.in);
 
 
@@ -14,6 +25,7 @@ public class BacktrackingAlgorithm extends AbstractAlgorithm {
     public BacktrackingAlgorithm(int[][] board) {
         super(board);
         this.board = board;
+        originalBoard = SudokuUtils.copyToNewArray(board);
     }
 
     @Override
@@ -35,7 +47,7 @@ public class BacktrackingAlgorithm extends AbstractAlgorithm {
                             // if we can't find the value again, we come back to previous guess and try again
                             board[row][column] = getNoValue();
                         }
-                        System.out.println("No possible solution, coming back");
+                        System.out.println(ANSI_RED+"NO POSSIBLE SOLUTION, GOING BACK" + ANSI_RESET);
                         // if there is no possible value to put in a cell algorithm will go back to check previous guesses
                         return false;
                     }
@@ -65,16 +77,13 @@ public class BacktrackingAlgorithm extends AbstractAlgorithm {
                     +"\niterations: " + iterations);
             print(row, column);
             try{
-                TimeUnit.MILLISECONDS.sleep(700);
+                TimeUnit.MILLISECONDS.sleep(850);
             }catch (InterruptedException e){
                 e.printStackTrace();
             }
             return true;
         }
         return false;
-        //(rowConstraint(row))
-        //                && columnConstraint(column)
-        //                && squareConstraint(row, column)
     }
 
     private boolean columnConstraint(int column) {
@@ -112,12 +121,20 @@ public class BacktrackingAlgorithm extends AbstractAlgorithm {
         for(int row = getStartIndex(); row < getBoardSize(); row++){
             for(int column = getStartIndex(); column < getBoardSize(); column++){
                 if(row == guessRow && column == guessColumn){
-                    System.out.print("|"+board[row][column] + "|    ");
-                } else if (row == guessRow && column == guessColumn-1) {
-                    System.out.print(board[row][column] + "    ");
-                } else{
-                    System.out.print(board[row][column] + "     ");
-
+                    System.out.print(ANSI_YELLOW+"|"+board[row][column] + "|    "+ANSI_RESET);
+                }
+                else if(board[row][column] != 0 && originalBoard[row][column] == 0 && row == guessRow && column == guessColumn-1){
+                    System.out.print(ANSI_GREEN + board[row][column] + "    " + ANSI_RESET);
+                }
+                else if(board[row][column] != 0 && originalBoard[row][column] == 0){
+                    System.out.print(ANSI_GREEN + board[row][column] + "     " + ANSI_RESET);
+                }
+                else{
+                    if (row == guessRow && column == guessColumn-1) {
+                        System.out.print(board[row][column] + "    ");
+                    } else{
+                        System.out.print(board[row][column] + "     ");
+                    }
                 }
             }
             System.out.println();
