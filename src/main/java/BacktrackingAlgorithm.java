@@ -73,11 +73,11 @@ public class BacktrackingAlgorithm extends AbstractAlgorithm {
 
     private boolean isValid(int row, int column, int guess) {
         if(rowConstraint(row) && columnConstraint(column) && squareConstraint(row, column)){
-            System.out.println("row: "+(row +1)+"\ncolumn: "+(column+1)+"\nguess: "+guess
+            System.out.println("\n\n\nguess: "+guess
                     +"\niterations: " + iterations);
             print(row, column);
             try{
-                TimeUnit.MILLISECONDS.sleep(850);
+                TimeUnit.MILLISECONDS.sleep(750);
             }catch (InterruptedException e){
                 e.printStackTrace();
             }
@@ -139,5 +139,6 @@ public class BacktrackingAlgorithm extends AbstractAlgorithm {
             }
             System.out.println();
         }
+        System.out.println("\n");
     }
 }

@@ -32,7 +32,7 @@ public class SudokuSolverMain {
         final BoardManager boardManager = new BoardManager(boardCopy);
 
 
-        boardManager.solve(1);
+        boardManager.solve(2);
         //boardManager.print();
         System.out.println("Solve time: "+boardManager.getTime()+"ms");
         System.out.println("Iterations: "+boardManager.getIterations());
