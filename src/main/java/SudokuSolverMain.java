@@ -30,18 +30,12 @@ public class SudokuSolverMain {
         };
 
         final BoardManager boardManager = new BoardManager(boardCopy);
-        System.out.println("INPUT:");
-        //boardManager.print();
 
-        System.out.println("Choose solving strategy:");
-        System.out.println("1.Backtracking algorithm (brute force solve)\n" +
-                           "2.Dancing links");
-        int choice = scanner.nextInt();
 
-        System.out.println("OUTPUT:");
-        boardManager.solve(choice);
+        boardManager.solve(1);
         //boardManager.print();
         System.out.println("Solve time: "+boardManager.getTime()+"ms");
+        System.out.println("Iterations: "+boardManager.getIterations());
 
 
 

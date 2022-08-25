@@ -39,6 +39,10 @@ public class BoardManager {
         return time;
     }
 
+    public int getIterations() {
+        return backtrackingAlgorithm.getIterations();
+    }
+
     public void print(){
         currentAlgorithm.print();
     }

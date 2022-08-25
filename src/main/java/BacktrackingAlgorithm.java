@@ -1,8 +1,15 @@
+import java.sql.Time;
+import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
 public class BacktrackingAlgorithm extends AbstractAlgorithm {
 
     private final int[][] board;
+    private final Scanner in = new Scanner(System.in);
+
+
+    private int iterations = 0;
 
     public BacktrackingAlgorithm(int[][] board) {
         super(board);
@@ -17,15 +24,19 @@ public class BacktrackingAlgorithm extends AbstractAlgorithm {
                     // if we find empty cell we iterate over all possible values until we find one that passes validation
                     if(board[row][column] == getNoValue()){
                         for(int guess = getMinValue(); guess <= getMaxValue(); guess++){
+                            iterations++;
                             board[row][column] = guess;  // put in our guess
-                            if(isValid(row, column) && solve()){
-                                // if our guess is valid recursive call to this function passes, sudoku is solved
+                            if(isValid(row, column, guess) && solve()){
+                                // if our guess is valid then recursive call to this function passes and sudoku is solved
+                                System.out.println("solved");
                                 return true;
                             }
-                            // if we didn't find the right value we empty the cell and try again
+                            // if we didn't find the right value we empty the cell and try again,
+                            // if we can't find the value again, we come back to previous guess and try again
                             board[row][column] = getNoValue();
                         }
-                        // if there is no possible value to put in a cell sudoku might be unsolvable
+                        System.out.println("No possible solution, coming back");
+                        // if there is no possible value to put in a cell algorithm will go back to check previous guesses
                         return false;
                     }
 
@@ -48,11 +59,22 @@ public class BacktrackingAlgorithm extends AbstractAlgorithm {
     }
 
 
-    private boolean isValid(int row, int column) {
-        return (rowConstraint(row))
-                && columnConstraint(column)
-                && squareConstraint(row, column);
-
+    private boolean isValid(int row, int column, int guess) {
+        if(rowConstraint(row) && columnConstraint(column) && squareConstraint(row, column)){
+            System.out.println("row: "+(row +1)+"\ncolumn: "+(column+1)+"\nguess: "+guess
+                    +"\niterations: " + iterations);
+            print(row, column);
+            try{
+                TimeUnit.MILLISECONDS.sleep(700);
+            }catch (InterruptedException e){
+                e.printStackTrace();
+            }
+            return true;
+        }
+        return false;
+        //(rowConstraint(row))
+        //                && columnConstraint(column)
+        //                && squareConstraint(row, column)
     }
 
     private boolean columnConstraint(int column) {
@@ -79,5 +101,26 @@ public class BacktrackingAlgorithm extends AbstractAlgorithm {
             }
         }
         return true;
+    }
+    @Override
+    public int getIterations() {
+        return iterations;
+    }
+
+    @Override
+    public void print(int guessRow, int guessColumn){
+        for(int row = getStartIndex(); row < getBoardSize(); row++){
+            for(int column = getStartIndex(); column < getBoardSize(); column++){
+                if(row == guessRow && column == guessColumn){
+                    System.out.print("|"+board[row][column] + "|    ");
+                } else if (row == guessRow && column == guessColumn-1) {
+                    System.out.print(board[row][column] + "    ");
+                } else{
+                    System.out.print(board[row][column] + "     ");
+
+                }
+            }
+            System.out.println();
+        }
     }
 }

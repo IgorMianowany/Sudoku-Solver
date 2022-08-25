@@ -54,4 +54,14 @@ public class AbstractAlgorithm implements Algorithm {
             System.out.println();
         }
     }
+
+    @Override
+    public void print(int row, int column) {
+
+    }
+
+    @Override
+    public int getIterations() {
+        return 0;
+    }
 }
