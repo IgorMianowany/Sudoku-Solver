@@ -13,7 +13,6 @@ public class GUI extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        SudokuSolver sudokuSolver = new SudokuSolver(new int[5][5]);
 
 
 

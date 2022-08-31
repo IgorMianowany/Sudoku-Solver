@@ -13,7 +13,6 @@ import static problemdomain.SudokuGame.GRID_BOUNDARY;
 
 public class GameLogic {
 
-
     public static SudokuGame getNewGame(){
         final int[][] board9x9 = {
                 { 3, 0, 0, 0, 0, 0, 1, 0, 0 },

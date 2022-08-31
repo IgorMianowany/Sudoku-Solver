@@ -30,6 +30,7 @@ public class UserInterfaceImpl implements IUserInterfaceContract.View, EventHand
     private final Stage stage;
     private final Group root;
     private final Button button = new Button();
+    private final Button buttonForAlgorithm = new Button();
 
     private final HashMap<Coordinates, SudokuTextField> textFieldCoordinates;
 
@@ -43,6 +44,7 @@ public class UserInterfaceImpl implements IUserInterfaceContract.View, EventHand
     private static final Color WINDOW_BACKGROUND_COLOR = Color.rgb(0,150,136);
     private static final Color BOARD_BACKGROUND_COLOR = Color.rgb(224,242,241);
     private static final String SUDOKU = "Sudoku";
+    private boolean showAlgorithm = false;
 
     public UserInterfaceImpl(Stage stage) {
         this.stage = stage;
@@ -153,13 +155,15 @@ public class UserInterfaceImpl implements IUserInterfaceContract.View, EventHand
 
     private void drawButton(Group root){
         button.setText("Show solution");
-        VBox vBox = new VBox(button);
+        buttonForAlgorithm.setText("Show algorithm");
+        VBox vBox = new VBox(button,buttonForAlgorithm);
         PopupWindow popupWindow = new PopupWindow();
         Stage stage1 = new Stage();
         button.setOnAction(
                 event -> popupWindow.start(stage1));
         vBox.setAlignment(Pos.BASELINE_CENTER);
         VBox.setMargin(button, new Insets(0, 0, 0, 300));
+        VBox.setMargin(buttonForAlgorithm, new Insets(0, 0, -26, 100));
         root.getChildren().add(vBox);
     }
 

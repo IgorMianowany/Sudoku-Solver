@@ -59,6 +59,21 @@ public class DancingLinksAlgorithm extends AbstractAlgorithm {
         return hBase;
     }
 
+    private int[][] booleanToInt(boolean[][] board){
+        int[][] intBoard = new int[9][9];
+        for (int row = 0; row <= 8; row += 1) {
+            for (int column = 0; column <= 8; column += 1) {
+                if(board[row][column]){
+                    intBoard[row][column] = 1;
+                }
+                else{
+                    intBoard[row][column] = 0;
+                }
+            }
+        }
+        return intBoard;
+    }
+
     private int checkColumnConstraint(boolean[][] coverBoard, int hBase) {
         for (int column = COVER_START_INDEX; column <= BOARD_SIZE; column++) {
             for (int n = COVER_START_INDEX; n <= BOARD_SIZE; n++, hBase++) {
