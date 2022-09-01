@@ -1,17 +1,20 @@
 import abstraction.AbstractAlgorithm;
 import algorithmX.DancingLinksAlgorithm;
 import backtrackingAlgorithm.BacktrackingAlgorithm;
+import wavefunctioncollapse.WaveFunctionCollapseAlgorithm;
 
 public class BoardManager {
     private long time;
     private final AbstractAlgorithm backtrackingAlgorithm;
     private final AbstractAlgorithm dancingLinksAlgorithm;
+    private final AbstractAlgorithm waveFunctionCollapseAlgorithm;
     private AbstractAlgorithm currentAlgorithm;
 
 
     public BoardManager(int[][] board) {
         backtrackingAlgorithm = new BacktrackingAlgorithm(board);
         dancingLinksAlgorithm = new DancingLinksAlgorithm(board);
+        waveFunctionCollapseAlgorithm = new WaveFunctionCollapseAlgorithm(board);
         currentAlgorithm = backtrackingAlgorithm;
     }
 
@@ -25,6 +28,10 @@ public class BoardManager {
             case 2 -> {
                 currentAlgorithm = dancingLinksAlgorithm;
                 dancingLinksAlgorithm.solve();
+            }
+            case 3 -> {
+                currentAlgorithm = waveFunctionCollapseAlgorithm;
+                waveFunctionCollapseAlgorithm.print();
             }
         }
         time = System.currentTimeMillis() - start;
